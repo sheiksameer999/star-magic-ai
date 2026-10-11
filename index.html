@@ -1,105 +1,23 @@
 <!doctype html>
-<html lang="te">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>STAR MAGIC AI — నమూనా</title>
+<html lang="te"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>STAR MAGIC AI</title>
 <style>
-:root{color-scheme:dark;--bg:#10091f;--panel:#1b1230;--panel2:#25173e;--line:#493366;--pink:#e879f9;--violet:#9b87ff;--text:#f8f4ff;--muted:#c7bddb}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#38205c 0,#10091f 48%);font-family:system-ui,-apple-system,"Noto Sans Telugu",sans-serif;color:var(--text)}
-main{max-width:760px;margin:auto;padding:22px 15px 40px}.brand{display:flex;gap:12px;align-items:center;margin-bottom:22px}.logo{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#c084fc,#6d28d9);font-size:25px;box-shadow:0 8px 30px #6d28d955}.brand h1{font-size:21px;letter-spacing:.5px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:13px}
-h2{font-size:18px;margin:0 0 13px}.card{background:#1b1230eF;border:1px solid var(--line);border-radius:19px;padding:17px;margin:13px 0;box-shadow:0 10px 30px #0002}
-label{display:block;font-size:14px;margin:11px 0 7px;color:#eee6ff}input[type=text],textarea,select{width:100%;border:1px solid #584276;background:#110b20;color:var(--text);border-radius:12px;padding:12px;font:inherit}textarea{min-height:105px;resize:vertical}input[type=file]{width:100%;font-size:13px;color:var(--muted)}.hint{font-size:12px;color:var(--muted);line-height:1.5}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{border:0;border-radius:12px;padding:12px 15px;background:linear-gradient(135deg,#c084fc,#7c3aed);color:white;font:inherit;font-weight:700;cursor:pointer}.btn.secondary{background:#302044;border:1px solid #654b82}.btn:active{transform:scale(.99)}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.preview{display:none;max-width:100%;max-height:230px;object-fit:contain;border-radius:12px;margin-top:12px;border:1px solid var(--line)}.scene{background:#130d22;border:1px solid #48325f;border-radius:12px;padding:12px;margin:10px 0}.scene-head{display:flex;justify-content:space-between;gap:10px;align-items:center;font-weight:700;font-size:14px}.scene textarea{min-height:70px;margin-top:9px}.pill{font-size:11px;border:1px solid #76559c;color:#e9d5ff;padding:4px 8px;border-radius:99px}.status{font-size:13px;color:#d8c7ff;min-height:22px;margin-top:10px}.footer{color:var(--muted);font-size:12px;line-height:1.6;text-align:center;padding:10px}.checks{display:flex;gap:16px;flex-wrap:wrap;font-size:14px}.checks label{display:flex;gap:8px;align-items:center;margin:4px 0}.checks input{accent-color:#a78bfa}
-@media(max-width:480px){.row{grid-template-columns:1fr}.card{padding:14px}.brand h1{font-size:19px}}
-</style>
-</head>
-<body>
-<main>
-  <header class="brand">
-    <div class="logo">✦</div>
-    <div><h1>STAR MAGIC AI</h1><p>మీ కథకు కొత్త రూపం ఇవ్వండి</p></div>
-  </header>
-
-  <section class="card">
-    <h2>1. మీ ఫోటో ఎంచుకోండి</h2>
-    <input id="photo" type="file" accept="image/*">
-    <img id="preview" class="preview" alt="ఎంచుకున్న ఫోటో ప్రివ్యూ">
-    <p class="hint">ఇది నమూనా మాత్రమే. ఫోటో ఈ పేజీలోనే ప్రివ్యూగా కనిపిస్తుంది.</p>
-  </section>
-
-  <section class="card">
-    <h2>2. మీ కథ రాయండి</h2>
-    <label for="story">కథ / సన్నివేశం</label>
-    <textarea id="story" placeholder="ఉదాహరణ: చిలకమ్మా కాఫీ షాప్‌కి వెళ్లి, స్నేహితులను కాఫీకి ఆహ్వానిస్తుంది..."></textarea>
-    <div class="row">
-      <div><label for="mode">తయారీ విధానం</label><select id="mode"><option>ఆటోమేటిక్ మోడ్</option><option>కస్టమ్ మోడ్</option></select></div>
-      <div><label for="ratio">వీడియో ఫార్మాట్</label><select id="ratio"><option value="9:16">9:16 — Shorts / Reels</option><option value="16:9">16:9 — Landscape</option></select></div>
-    </div>
-    <div class="checks">
-      <label><input id="subs" type="checkbox" checked> తెలుగు సబ్‌టైటిల్స్</label>
-      <label><input id="music" type="checkbox" checked> బ్యాక్‌గ్రౌండ్ మ్యూజిక్</label>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>3. సీన్లు సవరించండి</h2>
-    <p class="hint">కథలోని మాటలను వేర్వేరు సీన్లుగా ఇక్కడ రాసుకోవచ్చు.</p>
-    <div id="scenes">
-      <div class="scene"><div class="scene-head"><span>సీన్ 1</span><span class="pill">తెలుగు</span></div><textarea placeholder="సీన్ 1లో ఏమి జరుగుతుంది?"></textarea></div>
-      <div class="scene"><div class="scene-head"><span>సీన్ 2</span><span class="pill">తెలుగు</span></div><textarea placeholder="సీన్ 2లో ఏమి జరుగుతుంది?"></textarea></div>
-    </div>
-    <button class="btn secondary" id="addScene" type="button">＋ మరో సీన్ జోడించండి</button>
-  </section>
-
-  <section class="card">
-    <h2>4. పాత్ర వాయిస్ స్టైల్</h2>
-    <div class="row">
-      <div><label for="character">పాత్ర</label><select id="character"><option>చిలకమ్మా</option><option>టింగు రాజు</option><option>రిపోర్టర్</option><option>ఇతర పాత్ర</option></select></div>
-      <div><label for="voice">వాయిస్ స్టైల్</label><select id="voice"><option>స్నేహపూర్వకంగా</option><option>మృదువుగా</option><option>ఉత్సాహంగా</option><option>గంభీరంగా</option></select></div>
-    </div>
-    <p class="hint">వాయిస్ ఎంపిక ప్రస్తుతం సెట్టింగ్ మాత్రమే; నిజమైన వాయిస్ జనరేషన్ ఇంకా అనుసంధానం కాలేదు.</p>
-    <div class="actions">
-      <button class="btn" id="save" type="button">ప్రాజెక్ట్ సేవ్ చేయండి</button>
-      <button class="btn secondary" id="generate" type="button">వీడియో తయారీ పరీక్ష</button>
-    </div>
-    <div id="status" class="status" role="status" aria-live="polite"></div>
-  </section>
-  <p class="footer">ప్రోటోటైప్ మాత్రమే — నిజమైన AI వీడియో/వాయిస్ సేవలు ఇంకా కనెక్ట్ కాలేదు. ఫోటో లేదా కథను సర్వర్‌కు పంపదు. సేవ్ చేయడం ఈ బ్రౌజర్‌లోని స్థానిక నిల్వపై ఆధారపడి ఉంటుంది.</p>
-</main>
+:root{color-scheme:dark;--bg:#100b20;--panel:#1c1430;--accent:#a78bfa;--text:#f7f3ff;--muted:#c6bbdc;--border:#493761}*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#100b20,#1a1030);font-family:system-ui,sans-serif;color:var(--text);line-height:1.55}main{max-width:760px;margin:auto;padding:18px 14px 40px}.hero{padding:22px 18px;border:1px solid var(--border);border-radius:20px;background:linear-gradient(135deg,#2c1c4a,#171027);margin-bottom:16px}.hero h1{margin:0;font-size:27px}.hero p,.hint{color:var(--muted)}.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin:14px 0}h2{font-size:18px;margin:0 0 12px}label{display:block;font-weight:650;margin:10px 0 6px}textarea,select{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:#100b20;color:var(--text);font:inherit}textarea{min-height:155px;resize:vertical}input[type=file]{width:100%;padding:10px;background:#100b20;border-radius:10px;border:1px dashed var(--border);color:var(--muted)}.hint{font-size:13px;margin:7px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.checks{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px}.checks label{font-weight:400;margin:0}.btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}button{border:0;border-radius:11px;padding:12px 15px;background:var(--accent);color:#1b1230;font:inherit;font-weight:750;cursor:pointer}button.secondary{background:#34264e;color:var(--text);border:1px solid var(--border)}.scene{border:1px solid var(--border);background:#241a3b;padding:12px;border-radius:12px;margin:10px 0}.scene-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.scene textarea{min-height:80px}.status{padding:10px 12px;border-radius:10px;background:#171027;border:1px solid var(--border);margin-top:10px;white-space:pre-wrap}.small,footer{font-size:12px;color:var(--muted)}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero h1{font-size:24px}}
+</style></head><body><main>
+<header class="hero"><h1>✨ STAR MAGIC AI</h1><p>మీ కథను సీన్లుగా సిద్ధం చేసుకునే నమూనా</p></header>
+<section class="card"><h2>1. మీ ఫోటో ఎంచుకోండి</h2><input id="photo" type="file" accept="image/*"><p id="previewWrap" class="hint">ఇది నమూనా మాత్రమే. ఫోటో ఈ పేజీలోనే ప్రివ్యూగా కనిపిస్తుంది.</p><img id="preview" alt="ఫోటో ప్రివ్యూ" style="display:none;max-width:100%;max-height:260px;border-radius:12px"></section>
+<section class="card"><h2>2. మీ తెలుగు కథ</h2><label for="story">కథను ఇక్కడ రాయండి లేదా పేస్ట్ చేయండి</label><textarea id="story" placeholder="మీ తెలుగు కథను ఇక్కడ రాయండి..."></textarea><p class="hint">ప్రతి సీన్‌ను కొత్త లైన్‌లో రాస్తే విడగొట్టడం సులభం.</p><div class="btns"><button id="splitBtn">కథను సీన్లుగా విభజించు</button><button id="saveBtn" class="secondary">ప్రాజెక్ట్ సేవ్ చేయండి</button></div><div id="splitStatus" class="status" style="display:none"></div></section>
+<section class="card"><h2>3. వీడియో సెట్టింగ్స్</h2><div class="grid"><div><label for="mode">తయారీ విధానం</label><select id="mode"><option>ఆటోమేటిక్</option><option>కస్టమ్</option></select></div><div><label for="format">వీడియో ఫార్మాట్</label><select id="format"><option>9:16 Shorts / Reels</option><option>16:9 Landscape</option></select></div><div><label for="character">క్యారెక్టర్</label><select id="character"><option>చిలకమ్మ</option><option>టింగు రాజు</option><option>కొత్త క్యారెక్టర్</option></select></div><div><label for="voice">వాయిస్ స్టైల్</label><select id="voice"><option>స్నేహపూర్వక తెలుగు వాయిస్</option><option>ఉత్సాహంగా మాట్లాడే వాయిస్</option><option>కామెడీ స్టైల్</option></select></div></div><div class="checks"><label><input id="subs" type="checkbox" checked> తెలుగు సబ్‌టైటిల్స్</label><label><input id="music" type="checkbox" checked> బ్యాక్‌గ్రౌండ్ మ్యూజిక్</label></div><p class="hint">వాయిస్ ఎంపిక ప్రస్తుతం సెట్టింగ్ మాత్రమే; నిజమైన వాయిస్ జనరేషన్ ఇంకా అనుసంధానం కాలేదు.</p></section>
+<section class="card"><div class="scene-head"><h2 style="margin:0">4. సీన్ల జాబితా</h2><button id="addScene" class="secondary">+ సీన్ జోడించు</button></div><div id="scenes"><p class="hint">కథను విభజించిన తర్వాత సీన్లు ఇక్కడ కనిపిస్తాయి.</p></div><div class="btns"><button id="videoBtn">వీడియో తయారీ పరీక్ష</button></div><div id="videoStatus" class="status" style="display:none"></div></section>
+<footer>ఇది ప్రోటోటైప్ మాత్రమే. నిజమైన AI వీడియో/వాయిస్ సేవలు ఇంకా కనెక్ట్ కాలేదు. ఫోటో లేదా కథను సర్వర్‌కు పంపదు. సేవ్ చేయడం ఈ బ్రౌజర్‌లోని స్థానిక నిల్వపై ఆధారపడి ఉంటుంది; బ్రౌజర్ డేటా తొలగిస్తే వివరాలు పోవచ్చు.</footer></main>
 <script>
-const $=id=>document.getElementById(id);
-$('photo').addEventListener('change',e=>{
-  const file=e.target.files && e.target.files[0];
-  if(!file)return;
-  const url=URL.createObjectURL(file);
-  $('preview').src=url;$('preview').style.display='block';
-});
-$('addScene').addEventListener('click',()=>{
-  const count=$('scenes').children.length+1;
-  const box=document.createElement('div');box.className='scene';
-  const head=document.createElement('div');head.className='scene-head';
-  const title=document.createElement('span');title.textContent='సీన్ '+count;
-  const pill=document.createElement('span');pill.className='pill';pill.textContent='తెలుగు';
-  head.append(title,pill);
-  const area=document.createElement('textarea');area.placeholder='సీన్ '+count+'లో ఏమి జరుగుతుంది?';
-  box.append(head,area);$('scenes').append(box);
-});
-function collect(){
- return {story:$('story').value,mode:$('mode').value,ratio:$('ratio').value,subtitles:$('subs').checked,music:$('music').checked,character:$('character').value,voice:$('voice').value,scenes:[...$('scenes').querySelectorAll('textarea')].map(x=>x.value),savedAt:new Date().toISOString()};
-}
-$('save').addEventListener('click',()=>{
- try{localStorage.setItem('starMagicAiDraft',JSON.stringify(collect()));$('status').textContent='ఈ బ్రౌజర్‌లో ప్రాజెక్ట్ వివరాలు సేవ్ అయ్యాయి.';}
- catch(e){$('status').textContent='ఈ బ్రౌజర్‌లో సేవ్ చేయలేకపోయాం. మీ కథను వేరే చోట కాపీ చేసుకోండి.';}
-});
-$('generate').addEventListener('click',()=>{
- $('status').textContent='ఇది డెమో బటన్ మాత్రమే. నిజమైన AI వీడియో తయారీ ఇంకా అనుసంధానం కాలేదు.';
-});
-try{
- const raw=localStorage.getItem('starMagicAiDraft');
- if(raw){const d=JSON.parse(raw);$('story').value=d.story||'';$('mode').value=d.mode||'ఆటోమేటిక్ మోడ్';$('ratio').value=d.ratio||'9:16';$('subs').checked=d.subtitles!==false;$('music').checked=d.music!==false;$('character').value=d.character||'చిలకమ్మా';$('voice').value=d.voice||'స్నేహపూర్వకంగా';
- const boxes=$('scenes').querySelectorAll('textarea');(d.scenes||[]).forEach((v,i)=>{if(i>=boxes.length)$('addScene').click();$('scenes').querySelectorAll('textarea')[i].value=v;});
- }
-}catch(e){}
-</script>
-</body>
-</html>
+const $=id=>document.getElementById(id);let sceneCount=0;
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function addScene(t=''){sceneCount++;let d=document.createElement('div');d.className='scene';d.innerHTML=`<div class="scene-head"><strong>సీన్ ${sceneCount}</strong><button type="button" class="secondary remove">తొలగించు</button></div><label>ఈ సీన్‌లో జరిగేది / డైలాగ్</label><textarea class="sceneText" placeholder="ఈ సీన్‌లో ఏమి జరుగుతుంది?">${esc(t)}</textarea>`;d.querySelector('.remove').onclick=()=>{d.remove();renumber()};$('scenes').appendChild(d)}
+function renumber(){sceneCount=0;document.querySelectorAll('#scenes .scene').forEach(d=>d.querySelector('strong').textContent='సీన్ '+(++sceneCount))}
+function splitStory(){let raw=$('story').value.trim();if(!raw){show('ముందుగా మీ కథను రాయండి లేదా పేస్ట్ చేయండి.');return}let a=raw.split(/\n+/).map(s=>s.trim()).filter(Boolean);if(a.length===1)a=raw.split(/(?<=[.!?।॥…])\s+/).map(s=>s.trim()).filter(Boolean);if(a.length===1&&a[0].length>220){let words=a[0].split(/\s+/),groups=[],cur='';for(let w of words){if((cur+' '+w).trim().length>180&&cur){groups.push(cur);cur=w}else cur=(cur+' '+w).trim()}if(cur)groups.push(cur);a=groups}$('scenes').innerHTML='';sceneCount=0;a.forEach(addScene);show(`కథను ${a.length} సీన్(లు)గా విడగొట్టాం. ఇది సాధారణ వాక్యాల ఆధారిత విభజన మాత్రమే. సీన్లను చూసి సరిచేయండి.`)}
+function show(t){$('splitStatus').style.display='block';$('splitStatus').textContent=t}
+function save(){let d={story:$('story').value,scenes:[...document.querySelectorAll('.sceneText')].map(x=>x.value),mode:$('mode').value,format:$('format').value,character:$('character').value,voice:$('voice').value,subs:$('subs').checked,music:$('music').checked};try{localStorage.setItem('starMagicAIProject',JSON.stringify(d));show('ఈ బ్రౌజర్‌లో ప్రాజెక్ట్ వివరాలు సేవ్ అయ్యాయి.')}catch(e){show('సేవ్ చేయలేకపోయాం. బ్రౌజర్ నిల్వను తనిఖీ చేయండి.')}}
+function load(){try{let d=JSON.parse(localStorage.getItem('starMagicAIProject')||'null');if(!d)return;$('story').value=d.story||'';$('mode').value=d.mode||'ఆటోమేటిక్';$('format').value=d.format||'9:16 Shorts / Reels';$('character').value=d.character||'చిలకమ్మ';$('voice').value=d.voice||'స్నేహపూర్వక తెలుగు వాయిస్';$('subs').checked=d.subs!==false;$('music').checked=d.music!==false;if(d.scenes?.length){$('scenes').innerHTML='';sceneCount=0;d.scenes.forEach(addScene)}}catch(e){}}
+$('photo').onchange=e=>{let f=e.target.files?.[0];if(!f)return;let r=new FileReader();r.onload=()=>{$('preview').src=r.result;$('preview').style.display='block';$('previewWrap').textContent='ఎంచుకున్న ఫోటో ప్రివ్యూ (ఈ పేజీలో మాత్రమే).'};r.readAsDataURL(f)};
+$('splitBtn').onclick=splitStory;$('saveBtn').onclick=save;$('addScene').onclick=()=>addScene();$('videoBtn').onclick=()=>{$('videoStatus').style.display='block';$('videoStatus').textContent='ఇది డెమో బటన్ మాత్రమే. నిజమైన AI వీడియో తయారీ ఇంకా అనుసంధానం కాలేదు.'};load();
+</script></body></html>
