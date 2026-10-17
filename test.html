@@ -1,9 +1,3 @@
-
-<!DOCTYPE html>
-<html lang="te">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" 
 <!DOCTYPE html>
 <html lang="te">
 <head>
@@ -21,165 +15,282 @@ main{max-width:650px;margin:auto;padding:16px}
 h2{font-size:19px;margin:0 0 12px}
 label{display:block;margin:13px 0 7px}
 input[type=text],textarea,select{width:100%;padding:12px;border-radius:9px;border:1px solid #6e5794;background:#130d28;color:white;font-size:16px}
-textarea{min-height:120px;resize:vertical}
-button,.upload{display:inline-block;background:#8c45e8;color:white;border:0;border-radius:10px;padding:12px 16px;font-size:15px;font-weight:bold;cursor:pointer;text-align:center}
+textarea{min-height:100px;resize:vertical}
+button{display:inline-block;background:#8c45e8;color:white;border:0;border-radius:10px;padding:12px 16px;font-size:15px;font-weight:bold;cursor:pointer;text-align:center;margin:5px 3px 5px 0}
 button.secondary{background:#44345f}
-.upload{margin-top:10px}
+button.stop{background:#a43d62}
 input[type=file]{width:100%;margin-top:10px}
 #photoPreview{display:none;width:100%;max-height:350px;object-fit:contain;border-radius:12px;margin-top:14px;background:#100a25}
 .hint{color:#c9b9e8;font-size:13px;line-height:1.5}
 .options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .options label{margin:0;background:#30214e;padding:12px;border-radius:10px}
 .actions{display:flex;gap:10px;flex-wrap:wrap}
-#status{line-height:1.6;color:#e5d5ff}
-footer{text-align:center;color:#ad9acb;padding:20px;font-size:12px}
+#status{line-height:1.6;color:#e5d5ff;min-height:24px}
+footer{text-align:center;color:#ad9acb;padding:20px;font-size:12px;line-height:1.6}
+.scene{background:#180e2a;border:1px solid #60447f;border-radius:12px;padding:12px;margin:12px 0}
+.scene textarea{min-height:80px}
+input[type=checkbox]{width:auto;margin-right:8px}
+@media(max-width:420px){.options{grid-template-columns:1fr}header h1{font-size:24px}}
 </style>
 </head>
 <body>
 <header>
 <h1>⭐ STAR MAGIC AI</h1>
-<p>మీ కథకు కొత్త రూపం ఇవ్వండి</p>
+<p>మీ ఫోటో • మీ కథ • మీ తెలుగు సృజన</p>
 </header>
-
 <main>
-<div class="card">
-<h2>📸 మీ ఫోటో</h2>
+<section class="card">
+<h2>📸 1. మీ ఫోటో</h2>
 <p class="hint">మీరు ఉపయోగించాలనుకునే ఫోటోను ఎంచుకోండి. ఇది ప్రోటోటైప్ మాత్రమే.</p>
 <input id="photoInput" type="file" accept="image/*">
 <img id="photoPreview" alt="మీరు ఎంచుకున్న ఫోటో">
 <div class="actions" style="margin-top:12px">
-<button id="saveBtn">ప్రాజెక్ట్ సేవ్ చేయండి</button>
-<button id="removePhotoBtn" class="secondary">ఫోటో తీసివేయండి</button>
+<button id="removePhotoBtn" class="secondary" type="button">ఫోటో తీసివేయండి</button>
 </div>
-</div>
+</section>
 
-<div class="card">
-<h2>📝 మీ కథ</h2>
+<section class="card">
+<h2>📝 2. మీ కథ</h2>
 <label for="storyTitle">కథ పేరు</label>
 <input id="storyTitle" type="text" placeholder="ఉదా: గోదావరి చిలకమ్మా టింగు రాజు">
 <label for="storyInput">కథ / స్క్రిప్ట్</label>
 <textarea id="storyInput" placeholder="మీ కథను ఇక్కడ తెలుగులో టైప్ చేయండి..."></textarea>
+<div class="actions">
+<button id="splitBtn" type="button">కథను సీన్లుగా విభజించు</button>
 </div>
+</section>
 
-<div class="card">
-<h2>🎬 వీడియో సెట్టింగ్స్</h2>
+<section class="card">
+<h2>🎬 3. వీడియో సెట్టింగ్స్</h2>
 <label for="mode">మోడ్</label>
 <select id="mode">
-<option>Automatic Mode</option>
-<option>Custom Mode</option>
+<option value="auto">Automatic Mode</option>
+<option value="custom">Custom Mode</option>
 </select>
-
 <label for="format">వీడియో ఫార్మాట్</label>
 <select id="format">
 <option value="9:16">9:16 — Shorts / Reels</option>
 <option value="16:9">16:9 — Landscape</option>
 </select>
-
 <div class="options" style="margin-top:14px">
 <label><input id="subtitles" type="checkbox" checked> తెలుగు సబ్‌టైటిల్స్</label>
 <label><input id="music" type="checkbox" checked> బ్యాక్‌గ్రౌండ్ మ్యూజిక్</label>
 </div>
-
-<label for="voice">క్యారెక్టర్ వాయిస్</label>
-<select id="voice">
+<label for="character">క్యారెక్టర్ వాయిస్</label>
+<select id="character">
 <option>చిలకమ్మ</option>
 <option>టింగు రాజు</option>
-<option>Reporter</option>
-<option>Other</option>
+<option>రిపోర్టర్</option>
+<option>ఇతర పాత్ర</option>
 </select>
-
 <label for="voiceStyle">వాయిస్ స్టైల్</label>
 <select id="voiceStyle">
-<option>సంతోషంగా</option>
+<option>స్నేహపూర్వకంగా</option>
 <option>మృదువుగా</option>
 <option>ఉత్సాహంగా</option>
 <option>గంభీరంగా</option>
 </select>
-</div>
-
-<div class="card">
-<h2>🚀 మీ ప్రాజెక్ట్</h2>
-<p class="hint">ఈ నమూనాలో మీ ఎంపికలను సేవ్ చేసుకోవచ్చు. నిజమైన వీడియో తయారీకి AI వీడియో, వాయిస్ సేవలను తర్వాత అనుసంధానం చేయాలి.</p>
 <div class="actions">
-<button id="createBtn">ప్రాజెక్ట్ సిద్ధం చేయండి</button>
-<button id="loadBtn" class="secondary">సేవ్ చేసినది తెరవండి</button>
+<button id="testVoiceBtn" type="button">వాయిస్ పరీక్షించండి</button>
+<button id="stopBtn" class="stop" type="button">వాయిస్ ఆపండి</button>
 </div>
-<p id="status" role="status">మీ ఫోటో, కథను జోడించి ప్రారంభించండి.</p>
+<p class="hint">తెలుగు వాయిస్ మీ ఫోన్ లేదా బ్రౌజర్‌లో అందుబాటులో ఉంటే వినిపిస్తుంది.</p>
+</section>
+
+<section class="card">
+<h2>🎭 4. మీ సీన్లు</h2>
+<div id="scenes"></div>
+<div class="actions">
+<button id="addSceneBtn" type="button">+ సీన్ జోడించు</button>
+<button id="speakAllBtn" type="button">అన్ని సీన్లు వినండి</button>
 </div>
+</section>
+
+<section class="card">
+<h2>💾 5. మీ ప్రాజెక్ట్</h2>
+<p class="hint">ప్రాజెక్ట్ ఈ బ్రౌజర్‌లో సేవ్ అవుతుంది. నిజమైన AI వీడియో తయారీ ఇంకా అనుసంధానం కాలేదు.</p>
+<div class="actions">
+<button id="saveBtn" type="button">ప్రాజెక్ట్ సేవ్ చేయండి</button>
+<button id="loadBtn" class="secondary" type="button">సేవ్ చేసినది తెరవండి</button>
+<button id="createBtn" type="button">ప్రాజెక్ట్ సిద్ధం చేయండి</button>
+</div>
+<p id="status" role="status" aria-live="polite">మీ ఫోటో, కథను జోడించి ప్రారంభించండి.</p>
+</section>
 </main>
 
-<footer>STAR MAGIC AI · Prototype Preview · వీడియో జనరేషన్ ఇంకా అనుసంధానం కాలేదు</footer>
+<footer>
+STAR MAGIC AI · Prototype Preview<br>
+ఇది ఇంకా నిజమైన AI వీడియోను రూపొందించదు. వీడియో జనరేషన్, పాత్ర యానిమేషన్, సంగీత మిక్సింగ్, సబ్‌టైటిల్స్‌తో వీడియో ఎగుమతి వంటి ఫీచర్లు తర్వాత జోడించాలి.
+</footer>
 
 <script>
 const $ = id => document.getElementById(id);
 const KEY = "starMagicTestProject";
 let photoData = "";
 
-function showPhoto(data){
+function setStatus(message) {
+  $("status").textContent = message;
+}
+
+function showPhoto(data) {
   photoData = data || "";
   const img = $("photoPreview");
-  if(photoData){
+  if (photoData) {
     img.src = photoData;
     img.style.display = "block";
-  }else{
+  } else {
     img.removeAttribute("src");
     img.style.display = "none";
   }
 }
 
-function collectProject(){
+function renumberScenes() {
+  document.querySelectorAll(".scene").forEach((scene, index) => {
+    scene.querySelector("h3").textContent = "సీన్ " + (index + 1);
+    scene.querySelector("textarea").setAttribute("aria-label", "సీన్ " + (index + 1));
+  });
+}
+
+function speakTelugu(text) {
+  if (!text || !text.trim()) {
+    setStatus("ముందుగా సీన్‌లో డైలాగ్ రాయండి.");
+    return;
+  }
+  if (!("speechSynthesis" in window)) {
+    setStatus("ఈ బ్రౌజర్‌లో వాయిస్ సదుపాయం లేదు.");
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "te-IN";
+
+  const voice = window.speechSynthesis.getVoices().find(v =>
+    v.lang && v.lang.toLowerCase().startsWith("te")
+  );
+  if (voice) utterance.voice = voice;
+
+  utterance.onstart = () => setStatus("వాయిస్ ప్లే అవుతోంది...");
+  utterance.onend = () => setStatus("వాయిస్ పూర్తయింది.");
+  utterance.onerror = () => setStatus("తెలుగు వాయిస్ అందుబాటులో లేకపోవచ్చు.");
+
+  window.speechSynthesis.speak(utterance);
+}
+
+function addScene(text = "") {
+  const scene = document.createElement("div");
+  scene.className = "scene";
+
+  const heading = document.createElement("h3");
+  const area = document.createElement("textarea");
+  area.className = "sceneText";
+  area.placeholder = "ఈ సీన్ డైలాగ్ ఇక్కడ రాయండి...";
+  area.value = text;
+
+  const speakButton = document.createElement("button");
+  speakButton.type = "button";
+  speakButton.textContent = "ఈ సీన్ వినండి 🔊";
+  speakButton.addEventListener("click", () => speakTelugu(area.value));
+
+  const removeButton = document.createElement("button");
+  removeButton.type = "button";
+  removeButton.className = "secondary";
+  removeButton.textContent = "సీన్ తొలగించు";
+  removeButton.addEventListener("click", () => {
+    scene.remove();
+    renumberScenes();
+  });
+
+  scene.append(heading, area, speakButton, removeButton);
+  $("scenes").appendChild(scene);
+  renumberScenes();
+}
+
+function splitStory() {
+  const story = $("storyInput").value.trim();
+  if (!story) {
+    setStatus("ముందుగా మీ కథను రాయండి.");
+    $("storyInput").focus();
+    return;
+  }
+
+  $("scenes").innerHTML = "";
+  const parts = story
+    .split(/\n+|(?<=[.!?।])\s+/)
+    .map(part => part.trim())
+    .filter(Boolean);
+
+  parts.forEach(part => addScene(part));
+  setStatus(parts.length + " సీన్లు సిద్ధమయ్యాయి.");
+}
+
+function collectProject() {
   return {
     photoData,
     storyTitle: $("storyTitle").value,
-    storyInput: $("storyInput").value,
+    story: $("storyInput").value,
     mode: $("mode").value,
     format: $("format").value,
     subtitles: $("subtitles").checked,
     music: $("music").checked,
-    voice: $("voice").value,
-    voiceStyle: $("voiceStyle").value
+    character: $("character").value,
+    voiceStyle: $("voiceStyle").value,
+    scenes: Array.from(document.querySelectorAll(".sceneText")).map(area => area.value),
+    savedAt: new Date().toISOString()
   };
 }
 
-function saveProject(){
-  try{
+function saveProject() {
+  try {
     localStorage.setItem(KEY, JSON.stringify(collectProject()));
-    $("status").textContent = "మీ ప్రాజెక్ట్ ఈ బ్రౌజర్‌లో సేవ్ అయింది. ✓";
-  }catch(e){
-    $("status").textContent = "సేవ్ కాలేదు. ఫోటో పరిమాణం ఎక్కువగా ఉండవచ్చు. చిన్న ఫోటోను ప్రయత్నించండి.";
+    setStatus("మీ ప్రాజెక్ట్ ఈ బ్రౌజర్‌లో సేవ్ అయింది. ✓");
+  } catch (error) {
+    setStatus("సేవ్ కాలేదు. ఫోటో పరిమాణం ఎక్కువగా ఉండవచ్చు. చిన్న ఫోటోను ప్రయత్నించండి.");
   }
 }
 
-function loadProject(){
-  try{
+function loadProject() {
+  try {
     const raw = localStorage.getItem(KEY);
-    if(!raw){
-      $("status").textContent = "ఇంకా సేవ్ చేసిన ప్రాజెక్ట్ లేదు.";
+    if (!raw) {
+      setStatus("ఇంకా సేవ్ చేసిన ప్రాజెక్ట్ లేదు.");
       return;
     }
-    const p = JSON.parse(raw);
-    $("storyTitle").value = p.storyTitle || "";
-    $("storyInput").value = p.storyInput || "";
-    $("mode").value = p.mode || "Automatic Mode";
-    $("format").value = p.format || "9:16";
-    $("subtitles").checked = p.subtitles !== false;
-    $("music").checked = p.music !== false;
-    $("voice").value = p.voice || "చిలకమ్మ";
-    $("voiceStyle").value = p.voiceStyle || "సంతోషంగా";
-    showPhoto(p.photoData || "");
-    $("status").textContent = "సేవ్ చేసిన ప్రాజెక్ట్ తెరవబడింది. ✓";
-  }catch(e){
-    $("status").textContent = "సేవ్ చేసిన ప్రాజెక్ట్‌ను తెరవలేకపోయాం.";
+
+    const project = JSON.parse(raw);
+    $("storyTitle").value = project.storyTitle || "";
+    $("storyInput").value = project.story || project.storyInput || "";
+    $("mode").value = project.mode || "auto";
+    $("format").value = project.format || "9:16";
+    $("subtitles").checked = project.subtitles !== false;
+    $("music").checked = project.music !== false;
+    $("character").value = project.character || project.voice || "చిలకమ్మ";
+    $("voiceStyle").value = project.voiceStyle || "స్నేహపూర్వకంగా";
+
+    showPhoto(project.photoData || "");
+    $("scenes").innerHTML = "";
+
+    if (project.scenes && project.scenes.length) {
+      project.scenes.forEach(text => addScene(text));
+    } else {
+      addScene();
+    }
+
+    setStatus("సేవ్ చేసిన ప్రాజెక్ట్ తెరవబడింది. ✓");
+  } catch (error) {
+    setStatus("సేవ్ చేసిన ప్రాజెక్ట్‌ను తెరవలేకపోయాం.");
   }
 }
 
 $("photoInput").addEventListener("change", event => {
   const file = event.target.files && event.target.files[0];
-  if(!file) return;
-  if(!file.type.startsWith("image/")){
-    $("status").textContent = "దయచేసి ఫోటో ఫైల్‌ను ఎంచుకోండి.";
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    setStatus("దయచేసి ఫోటో ఫైల్‌ను ఎంచుకోండి.");
     return;
   }
+
   const reader = new FileReader();
   reader.onload = () => {
     const img = new Image();
@@ -187,284 +298,42 @@ $("photoInput").addEventListener("change", event => {
       const max = 1000;
       const scale = Math.min(1, max / Math.max(img.width, img.height));
       const canvas = document.createElement("canvas");
-      canvas.width = Math.round(img.width * scale);
-      canvas.height = Math.round(img.height * scale);
+      canvas.width = Math.max(1, Math.round(img.width * scale));
+      canvas.height = Math.max(1, Math.round(img.height * scale));
       canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
       showPhoto(canvas.toDataURL("image/jpeg", 0.78));
-      $("status").textContent = "ఫోటో సిద్ధంగా ఉంది. ప్రాజెక్ట్‌ను సేవ్ చేయండి.";
+      setStatus("ఫోటో ప్రివ్యూ సిద్ధంగా ఉంది. ప్రాజెక్ట్‌ను సేవ్ చేయండి.");
     };
-    img.onerror = () => {
-      $("status").textContent = "ఈ ఫోటోను తెరవలేకపోయాం. మరో ఫోటోను ప్రయత్నించండి.";
-    };
+    img.onerror = () => setStatus("ఈ ఫోటోను తెరవలేకపోయాం. మరో ఫోటోను ప్రయత్నించండి.");
     img.src = reader.result;
   };
   reader.readAsDataURL(file);
 });
 
-$("saveBtn").addEventListener("click", saveProject);
-$("loadBtn").addEventListener("click", loadProject);
 $("removePhotoBtn").addEventListener("click", () => {
   showPhoto("");
   $("photoInput").value = "";
-  $("status").textContent = "ఫోటో తీసివేయబడింది. మార్పులను సేవ్ చేయండి.";
+  setStatus("ఫోటో తీసివేయబడింది.");
 });
 
+$("splitBtn").addEventListener("click", splitStory);
+$("addSceneBtn").addEventListener("click", () => addScene());
+$("saveBtn").addEventListener("click", saveProject);
+$("loadBtn").addEventListener("click", loadProject);
+
 $("createBtn").addEventListener("click", () => {
-  if(!$("storyInput").value.trim()){
-    $("status").textContent = "ముందుగా మీ కథను టైప్ చేయండి.";
+  const hasScene = Array.from(document.querySelectorAll(".sceneText"))
+    .some(area => area.value.trim());
+
+  if (!$("storyInput").value.trim() && !hasScene) {
+    setStatus("ముందుగా మీ కథ లేదా సీన్ డైలాగ్ రాయండి.");
     $("storyInput").focus();
     return;
   }
+
   saveProject();
-  $("status").textContent = "మీ కథ, సెట్టింగ్స్ సేవ్ అయ్యాయి. ఇది నమూనా మాత్రమే; AI వీడియో ఇంకా తయారు చేయదు.";
+  setStatus("మీ కథ, సెట్టింగ్స్ సేవ్ అయ్యాయి. ఇది నమూనా మాత్రమే; నిజమైన AI వీడియో ఇంకా తయారు చేయదు.");
 });
-
-window.addEventListener("DOMContentLoaded", loadProject);
-</script>
-</body>
-</html>
-, initial-scale=1">
-<title>STAR MAGIC AI</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;padding:16px;background:#100923;color:#fff;font-family:Arial,sans-serif}
-main{max-width:760px;margin:auto}
-header{text-align:center;padding:18px 0}
-h1{color:#d9c5ff}
-.panel{background:#21133b;border:1px solid #49316b;border-radius:16px;padding:16px;margin:14px 0}
-label{display:block;margin:14px 0 7px}
-input:not([type=checkbox]),textarea,select{width:100%;padding:12px;border-radius:10px;border:1px solid #665083;background:#140c25;color:#fff;font-size:16px}
-textarea{min-height:100px;resize:vertical}
-button{border:1px solid #b99aff;border-radius:12px;padding:12px 14px;margin:5px 3px;background:linear-gradient(135deg,#8957ff,#c44de2);color:white;font-size:15px;font-weight:bold;cursor:pointer}
-button.secondary{background:#493264;border-color:#9273b9}
-button.stop{background:linear-gradient(135deg,#a43d62,#d34f7c);border-color:#ff9fbe}
-#saveBtn{background:linear-gradient(135deg,#087f68,#16a085);border-color:#63e6c5}
-#addSceneBtn{background:linear-gradient(135deg,#3157c8,#537dff);border-color:#9db6ff}
-.scene{background:#180e2a;border:1px solid #60447f;border-radius:12px;padding:12px;margin:12px 0}
-.scene .secondary{background:linear-gradient(135deg,#8d294d,#c74770);border-color:#ff91b1}
-#photoPreview{display:none;max-width:100%;max-height:300px;margin-top:12px;border-radius:12px}
-.small,footer{color:#c9bddf;font-size:14px;line-height:1.7}
-.status{color:#d8c6ff;min-height:24px;line-height:1.6}
-input[type=checkbox]{width:auto;margin-right:8px}
-.checkrow{margin:12px 0}
-</style>
-</head>
-<body>
-<main>
-<header>
-<h1>✨ STAR MAGIC AI ✨</h1>
-<p>మీ ఫోటో • మీ కథ • మీ తెలుగు సృజన</p>
-</header>
-
-<section class="panel">
-<h2>1. ఫోటో ఎంచుకోండి</h2>
-<input id="photoInput" type="file" accept="image/*">
-<img id="photoPreview" alt="ఎంచుకున్న ఫోటో">
-<p class="small">మీరు ఎంచుకున్న ఫోటో ఇక్కడ కనిపిస్తుంది.</p>
-</section>
-
-<section class="panel">
-<h2>2. మీ కథ రాయండి</h2>
-<label for="storyInput">కథ లేదా సంభాషణ</label>
-<textarea id="storyInput" placeholder="ఇక్కడ మీ తెలుగు కథ రాయండి..."></textarea>
-
-<label for="mode">తయారీ విధానం</label>
-<select id="mode">
-<option value="auto">Automatic Mode</option>
-<option value="custom">Custom Mode</option>
-</select>
-
-<label for="format">వీడియో ఫార్మాట్</label>
-<select id="format">
-<option value="9:16">9:16 - Shorts / Reels</option>
-<option value="16:9">16:9 - Landscape</option>
-</select>
-
-<div class="checkrow">
-<label><input id="teluguSubs" type="checkbox" checked> తెలుగు సబ్‌టైటిల్స్</label>
-<label><input id="music" type="checkbox" checked> బ్యాక్‌గ్రౌండ్ మ్యూజిక్ ఎంపిక</label>
-</div>
-
-<button id="splitBtn">కథను సీన్లుగా విభజించు</button>
-<button id="saveBtn">ప్రాజెక్ట్‌ను సేవ్ చేయి</button>
-<p id="status" class="status" aria-live="polite"></p>
-</section>
-
-<section class="panel">
-<h2>3. సీన్లు</h2>
-<div id="scenes"></div>
-<button id="addSceneBtn">+ సీన్ జోడించు</button>
-<button id="speakAllBtn">అన్ని సీన్లు వినండి</button>
-<button id="stopBtn" class="stop">వాయిస్ ఆపండి</button>
-</section>
-
-<section class="panel">
-<h2>4. పాత్ర వాయిస్</h2>
-<label for="character">పాత్ర</label>
-<select id="character">
-<option>చిలకమ్మ</option>
-<option>టింగు రాజు</option>
-<option>రిపోర్టర్</option>
-<option>ఇతర పాత్ర</option>
-</select>
-
-<label for="voiceStyle">మాట్లాడే శైలి</label>
-<select id="voiceStyle">
-<option>స్నేహపూర్వకంగా</option>
-<option>మృదువుగా</option>
-<option>ఉత్సాహంగా</option>
-<option>గంభీరంగా</option>
-</select>
-
-<button id="testVoiceBtn">వాయిస్ పరీక్షించండి</button>
-<p class="small">మీ ఫోన్‌లో తెలుగు వాయిస్ ఉంటే వినిపిస్తుంది.</p>
-</section>
-
-<footer>
-<p>STAR MAGIC AI — పరీక్షా ప్రోటోటైప్</p>
-<p>ఇది ఇంకా నిజమైన AI వీడియోను రూపొందించదు. వీడియో జనరేషన్, పాత్ర యానిమేషన్, సంగీత మిక్సింగ్, సబ్‌టైటిల్స్‌తో వీడియో ఎగుమతి వంటి ఫీచర్లు తర్వాత జోడించాలి.</p>
-</footer>
-</main>
-
-<script>
-const $ = id => document.getElementById(id);
-let sceneCount = 0;
-
-function setStatus(message){
-  $("status").textContent = message;
-}
-
-$("photoInput").addEventListener("change", function(){
-  const file = this.files && this.files[0];
-  if(!file) return;
-
-  if(!file.type.startsWith("image/")){
-    setStatus("దయచేసి ఫోటో ఫైల్ ఎంచుకోండి.");
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = e => {
-    $("photoPreview").src = e.target.result;
-    $("photoPreview").style.display = "block";
-    setStatus("ఫోటో ప్రివ్యూ సిద్ధంగా ఉంది.");
-  };
-  reader.readAsDataURL(file);
-});
-
-function renumberScenes(){
-  sceneCount = 0;
-  document.querySelectorAll(".scene").forEach(scene => {
-    sceneCount++;
-    scene.querySelector("h3").textContent = "సీన్ " + sceneCount;
-  });
-}
-
-function addScene(text = ""){
-  sceneCount++;
-
-  const scene = document.createElement("div");
-  scene.className = "scene";
-
-  const heading = document.createElement("h3");
-  heading.textContent = "సీన్ " + sceneCount;
-
-  const area = document.createElement("textarea");
-  area.className = "sceneText";
-  area.placeholder = "ఈ సీన్ డైలాగ్ ఇక్కడ రాయండి...";
-  area.value = text;
-  area.setAttribute("aria-label", "సీన్ " + sceneCount);
-
-  const speak = document.createElement("button");
-  speak.textContent = "ఈ సీన్ వినండి";
-  speak.addEventListener("click", () => speakTelugu(area.value));
-
-  const remove = document.createElement("button");
-  remove.textContent = "సీన్ తొలగించు";
-  remove.className = "secondary";
-  remove.addEventListener("click", () => {
-    scene.remove();
-    renumberScenes();
-  });
-
-  scene.append(heading, area, speak, remove);
-  $("scenes").appendChild(scene);
-}
-
-$("addSceneBtn").addEventListener("click", () => addScene());
-
-$("splitBtn").addEventListener("click", () => {
-  const story = $("storyInput").value.trim();
-
-  if(!story){
-    setStatus("ముందుగా మీ కథను రాయండి.");
-    return;
-  }
-
-  $("scenes").innerHTML = "";
-  sceneCount = 0;
-
-  const parts = story
-    .split(/\n+|(?<=[.!?।])\s+/)
-    .map(s => s.trim())
-    .filter(Boolean);
-
-  parts.forEach(part => addScene(part));
-  setStatus(parts.length + " సీన్లు సిద్ధమయ్యాయి.");
-});
-
-$("saveBtn").addEventListener("click", () => {
-  const project = {
-    story: $("storyInput").value,
-    mode: $("mode").value,
-    format: $("format").value,
-    subtitles: $("teluguSubs").checked,
-    music: $("music").checked,
-    character: $("character").value,
-    voiceStyle: $("voiceStyle").value,
-    scenes: Array.from(document.querySelectorAll(".sceneText"))
-      .map(a => a.value),
-    savedAt: new Date().toISOString()
-  };
-
-  try{
-    localStorage.setItem("starMagicTestProject", JSON.stringify(project));
-    setStatus("ఈ బ్రౌజర్‌లో ప్రాజెక్ట్ సేవ్ అయింది.");
-  }catch(e){
-    setStatus("సేవ్ కాలేదు. మీ కథను కాపీ చేసి భద్రపరచండి.");
-  }
-});
-
-function speakTelugu(text){
-  if(!text.trim()){
-    setStatus("ముందుగా సీన్‌లో డైలాగ్ రాయండి.");
-    return;
-  }
-
-  if(!("speechSynthesis" in window)){
-    setStatus("ఈ బ్రౌజర్‌లో వాయిస్ సదుపాయం లేదు.");
-    return;
-  }
-
-  window.speechSynthesis.cancel();
-
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "te-IN";
-
-  const voices = window.speechSynthesis.getVoices();
-  const teluguVoice = voices.find(v =>
-    v.lang.toLowerCase().startsWith("te")
-  );
-
-  if(teluguVoice) utterance.voice = teluguVoice;
-
-  utterance.onstart = () => setStatus("వాయిస్ ప్లే అవుతోంది...");
-  utterance.onend = () => setStatus("వాయిస్ పూర్తయింది.");
-  utterance.onerror = () =>
-    setStatus("తెలుగు వాయిస్ అందుబాటులో లేకపోవచ్చు.");
-
-  window.speechSynthesis.speak(utterance);
-}
 
 $("testVoiceBtn").addEventListener("click", () => {
   speakTelugu("నమస్కారం! స్టార్ మ్యాజిక్ ఏ ఐ కి స్వాగతం.");
@@ -472,10 +341,10 @@ $("testVoiceBtn").addEventListener("click", () => {
 
 $("speakAllBtn").addEventListener("click", () => {
   const texts = Array.from(document.querySelectorAll(".sceneText"))
-    .map(a => a.value.trim())
+    .map(area => area.value.trim())
     .filter(Boolean);
 
-  if(!texts.length){
+  if (!texts.length) {
     setStatus("ముందుగా సీన్లలో డైలాగ్ రాయండి.");
     return;
   }
@@ -484,34 +353,17 @@ $("speakAllBtn").addEventListener("click", () => {
 });
 
 $("stopBtn").addEventListener("click", () => {
-  if("speechSynthesis" in window){
-    window.speechSynthesis.cancel();
-  }
+  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
   setStatus("వాయిస్ ఆపబడింది.");
 });
 
-try{
-  const saved = localStorage.getItem("starMagicTestProject");
-
-  if(saved){
-    const project = JSON.parse(saved);
-
-    $("storyInput").value = project.story || "";
-    $("mode").value = project.mode || "auto";
-    $("format").value = project.format || "9:16";
-    $("teluguSubs").checked = project.subtitles !== false;
-    $("music").checked = project.music !== false;
-    $("character").value = project.character || "చిలకమ్మ";
-    $("voiceStyle").value = project.voiceStyle || "స్నేహపూర్వకంగా";
-
-    (project.scenes || []).forEach(text => addScene(text));
-    setStatus("మునుపటి పరీక్షా ప్రాజెక్ట్ లోడ్ అయింది.");
+window.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem(KEY)) {
+    loadProject();
+  } else {
+    addScene("మీ కథలోని మొదటి సీన్ ఇక్కడ రాయండి.");
   }
-}catch(e){}
-
-if(!document.querySelector(".scene")){
-  addScene();
-}
+});
 </script>
 </body>
 </html>
