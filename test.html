@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="te">
 <head>
@@ -143,7 +142,7 @@ footer { text-align:center; color:#ad9acb; padding:20px; font-size:12px; }
     </div>
     <p class="hint">సీన్ 1, సీన్ 2 వంటి శీర్షికలు ఉంటే వాటి ఆధారంగా విభజిస్తుంది.</p>
   </section>
-
+  
   <section class="card">
     <h2>🎬 3. వీడియో సెట్టింగ్స్</h2>
     <label for="mode">మోడ్</label>
@@ -191,7 +190,7 @@ footer { text-align:center; color:#ad9acb; padding:20px; font-size:12px; }
     <div id="scenes"></div>
     <div class="actions">
       <button id="addSceneBtn" type="button">+ సీన్ జోడించు</button>
-      <button id="speakAllBtn" class="secondary" type="button">అన్ని సీన్లు వినండి</button>
+      <button id="speakAllBtn" style="background:#2478e8" type="button">అన్ని సీన్లు వినండి</button>
     </div>
   </section>
 
@@ -218,14 +217,12 @@ footer { text-align:center; color:#ad9acb; padding:20px; font-size:12px; }
   STAR MAGIC AI · Prototype Preview<br>
   ఇది ఇంకా నిజమైన AI వీడియోను రూపొందించదు. వీడియో జనరేషన్, పాత్ర యానిమేషన్, సంగీత మిక్సింగ్, సబ్‌టైటిల్స్‌తో వీడియో ఎగుమతి వంటి ఫీచర్లు తర్వాత అనుసంధానం చేయాలి.
 </footer>
-
 <script>
 (() => {
   const $ = id => document.getElementById(id);
   const scenesEl = $("scenes");
   let photoData = "";
   let sceneCounter = 0;
-  let photoUrl = "";
 
   function setStatus(message) {
     $("status").textContent = message;
@@ -233,6 +230,7 @@ footer { text-align:center; color:#ad9acb; padding:20px; font-size:12px; }
 
   function addScene(text = "") {
     sceneCounter++;
+
     const box = document.createElement("div");
     box.className = "scene";
 
@@ -250,7 +248,7 @@ footer { text-align:center; color:#ad9acb; padding:20px; font-size:12px; }
 
     const speakBtn = document.createElement("button");
     speakBtn.type = "button";
-    speakBtn.className = "secondary";
+    speakBtn.style.background = "#8c45e8";
     speakBtn.textContent = "ఈ సీన్ వినండి 🔊";
     speakBtn.addEventListener("click", () => speak(area.value));
 
@@ -285,28 +283,31 @@ footer { text-align:center; color:#ad9acb; padding:20px; font-size:12px; }
 
   function splitStory() {
     const story = $("storyInput").value.trim();
+
     if (!story) {
       setStatus("ముందుగా మీ కథను రాయండి.");
       return;
     }
 
-    // Explicit headings such as "సీన్ 1", "సీన్ 2" take priority.
     const explicit = story.split(/(?=సీన్\s*[-–:]?\s*\d+)/i)
-      .map(s => s.trim()).filter(Boolean);
+      .map(s => s.trim())
+      .filter(Boolean);
 
     let parts = [];
+
     if (explicit.length > 1) {
       parts = explicit;
     } else {
-      // Otherwise split into paragraphs, not individual words or lines.
       parts = story.split(/\n\s*\n/)
-        .map(s => s.trim()).filter(Boolean);
+        .map(s => s.trim())
+        .filter(Boolean);
     }
 
     if (parts.length === 1) {
-      // Keep a short story together; split longer stories by sentences.
       const sentences = story.split(/(?<=[.!?।])\s+/)
-        .map(s => s.trim()).filter(Boolean);
+        .map(s => s.trim())
+        .filter(Boolean);
+
       if (sentences.length > 3) {
         parts = [];
         for (let i = 0; i < sentences.length; i += 3) {
@@ -325,12 +326,14 @@ footer { text-align:center; color:#ad9acb; padding:20px; font-size:12px; }
       setStatus("ముందుగా సీన్‌లో సంభాషణ రాయండి.");
       return;
     }
+
     if (!("speechSynthesis" in window)) {
       setStatus("మీ బ్రౌజర్‌లో వాయిస్ సదుపాయం అందుబాటులో లేదు.");
       return;
     }
 
     window.speechSynthesis.cancel();
+
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "te-IN";
 
@@ -340,11 +343,13 @@ footer { text-align:center; color:#ad9acb; padding:20px; font-size:12px; }
 
     const voices = window.speechSynthesis.getVoices();
     const teluguVoice = voices.find(v => v.lang.toLowerCase().startsWith("te"));
+
     if (teluguVoice) utterance.voice = teluguVoice;
 
     utterance.onstart = () => setStatus("వాయిస్ ప్లే అవుతోంది…");
     utterance.onend = () => setStatus("వాయిస్ పూర్తయింది.");
     utterance.onerror = () => setStatus("వాయిస్ ప్లే కాలేదు. మీ ఫోన్ వాయిస్ సెట్టింగ్స్‌ను పరిశీలించండి.");
+
     window.speechSynthesis.speak(utterance);
   }
 
@@ -364,12 +369,14 @@ footer { text-align:center; color:#ad9acb; padding:20px; font-size:12px; }
     }
 
     const reader = new FileReader();
+
     reader.onload = () => {
       photoData = reader.result;
       $("photoPreview").src = photoData;
       $("photoPreview").style.display = "block";
       setStatus("ఫోటో జోడించబడింది.");
     };
+
     reader.readAsDataURL(file);
   });
 
@@ -383,14 +390,19 @@ footer { text-align:center; color:#ad9acb; padding:20px; font-size:12px; }
 
   $("splitBtn").addEventListener("click", splitStory);
   $("addSceneBtn").addEventListener("click", () => addScene());
+
   $("testVoiceBtn").addEventListener("click", () => {
     speak("నమస్కారం! ఇది స్టార్ మ్యాజిక్ ఏ ఐ తెలుగు వాయిస్ పరీక్ష.");
   });
+
   $("stopVoiceBtn").addEventListener("click", () => {
     if ("speechSynthesis" in window) window.speechSynthesis.cancel();
     setStatus("వాయిస్ ఆపబడింది.");
   });
-  $("speakAllBtn").addEventListener("click", () => speak(getSceneTexts().join(". ")));
+
+  $("speakAllBtn").addEventListener("click", () => {
+    speak(getSceneTexts().join(". "));
+  });
 
   function getProject() {
     return {
@@ -409,9 +421,13 @@ footer { text-align:center; color:#ad9acb; padding:20px; font-size:12px; }
   $("saveBtn").addEventListener("click", () => {
     try {
       localStorage.setItem("starMagicAIProject", JSON.stringify(getProject()));
-      // Save photo separately because large images can exceed storage limits.
-      if (photoData) localStorage.setItem("starMagicAIPhoto", photoData);
-      else localStorage.removeItem("starMagicAIPhoto");
+
+      if (photoData) {
+        localStorage.setItem("starMagicAIPhoto", photoData);
+      } else {
+        localStorage.removeItem("starMagicAIPhoto");
+      }
+
       setStatus("ప్రాజెక్ట్ ఈ బ్రౌజర్‌లో సేవ్ అయింది. ✓");
     } catch (error) {
       setStatus("సేవ్ కాలేదు. ఫోటో చాలా పెద్దదిగా ఉండవచ్చు; చిన్న ఫోటోతో మళ్లీ ప్రయత్నించండి.");
@@ -421,12 +437,14 @@ footer { text-align:center; color:#ad9acb; padding:20px; font-size:12px; }
   $("loadBtn").addEventListener("click", () => {
     try {
       const raw = localStorage.getItem("starMagicAIProject");
+
       if (!raw) {
         setStatus("సేవ్ చేసిన ప్రాజెక్ట్ ఈ బ్రౌజర్‌లో కనిపించలేదు.");
         return;
       }
 
       const project = JSON.parse(raw);
+
       $("storyTitle").value = project.title || "";
       $("storyInput").value = project.story || "";
       $("mode").value = project.mode || "Automatic Mode";
@@ -440,6 +458,7 @@ footer { text-align:center; color:#ad9acb; padding:20px; font-size:12px; }
       (project.scenes || []).forEach(text => addScene(text));
 
       photoData = localStorage.getItem("starMagicAIPhoto") || "";
+
       if (photoData) {
         $("photoPreview").src = photoData;
         $("photoPreview").style.display = "block";
@@ -456,27 +475,31 @@ footer { text-align:center; color:#ad9acb; padding:20px; font-size:12px; }
 
   $("prepareBtn").addEventListener("click", () => {
     const project = getProject();
+
     if (!project.title.trim() || !project.story.trim() || !project.scenes.length) {
       setStatus("ప్రాజెక్ట్ సిద్ధం చేయడానికి కథ పేరు, కథ, కనీసం ఒక సీన్ అవసరం.");
       return;
     }
+
     setStatus("ప్రాజెక్ట్ వివరాలు సిద్ధంగా ఉన్నాయి. నిజమైన AI వీడియో తయారీకి AI సేవ అనుసంధానం అవసరం.");
   });
 
   $("checkVideoBtn").addEventListener("click", () => {
     const scenes = getSceneTexts();
+
     if (!photoData) {
       setStatus("ముందుగా మీ ఫోటోను ఎంచుకోండి.");
       return;
     }
+
     if (!$("storyInput").value.trim() || scenes.length === 0) {
       setStatus("ముందుగా కథ రాసి, కథను సీన్లుగా విభజించండి.");
       return;
     }
+
     setStatus("తనిఖీ పూర్తయింది: ఫోటో, కథ, " + scenes.length + " సీన్లు సిద్ధంగా ఉన్నాయి. నిజమైన AI వీడియోను రూపొందించడానికి AI సేవ ఇంకా అనుసంధానం కాలేదు.");
   });
 
-  // Start with one editable scene.
   addScene();
 })();
 </script>
